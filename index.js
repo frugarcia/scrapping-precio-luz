@@ -15,22 +15,22 @@ const LOCATIONS = {
   cym: "Ceuta y Melilla",
 };
 
-const firstDate = "01/06/2021";
-const firstParsedDate = parseDate(firstDate, FORMAT_DATE, new Date());
+const FIRST_DATE = "01/06/2021";
+const firstParsedDate = parseDate(FIRST_DATE, FORMAT_DATE, new Date());
 
 const datesForSearch = eachDayOfInterval({
   start: firstParsedDate,
   end: new Date(),
 });
 
-Promise.all(
-  datesForSearch.map((item) => {
-    const date = formatDate(item, FORMAT_DATE);
-    return getData(date, "pcb");
-  })
-)
-  .then((a) => console.log(a))
-  .catch((err) => console.log(err));
+// Promise.all(
+//   datesForSearch.map((item) => {
+//     const date = formatDate(item, FORMAT_DATE);
+//     return getData(date, "pcb");
+//   })
+// )
+//   .then((a) => console.log(a))
+//   .catch((err) => console.log(err));
 
 function pageURLByParams(date, type) {
   const query = queryString.stringify({ tarifa: type, fecha: date });
@@ -100,4 +100,6 @@ async function getData(date, location) {
   return data;
 }
 
-getData("01/02/2022", "pcb");
+getData("01/02/2022", "pcb").then((data) => {
+  console.log(data);
+});
